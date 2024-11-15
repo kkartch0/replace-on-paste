@@ -45,7 +45,7 @@ describe('applyReplacements', () => {
 
     it('should handle regex special characters in patterns', () => {
         const text = "Hello world! pg122";
-        const replacements = { ' (pg\d+)': '#books/atomic-habits/$1' };
+        const replacements = { '(pg\\d+)': ' #books/atomic-habits/$1' };
         const result = applyReplacements(text, replacements);
         expect(result).toBe('Hello world! #books/atomic-habits/pg122');
     });

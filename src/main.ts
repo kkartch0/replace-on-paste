@@ -8,7 +8,7 @@ interface ReplaceOnPasteSettings {
 }
 
 const DEFAULT_SETTINGS: ReplaceOnPasteSettings = {
-	replacements: {" (pg\d+)":"#books/atomic-habits/$1" } 
+	replacements: { '(pg\\d+)':'#books/atomic-habits/$1' } 
 }
 
 export default class ReplaceOnPacePlugin extends Plugin {
