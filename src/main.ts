@@ -1,5 +1,6 @@
 import { Plugin, Editor, MarkdownView, Notice } from "obsidian";
 import { applyReplacements } from "./replacementHelper";
+import { ReplaceOnPasteSettingsTab } from "./settingsTab";
 
 // Remember to rename these classes and interfaces!
 
@@ -8,14 +9,14 @@ interface ReplaceOnPasteSettings {
 }
 
 const DEFAULT_SETTINGS: ReplaceOnPasteSettings = {
-	replacements: { '(pg\\d+)':'#books/atomic-habits/$1' } 
+	replacements: { } 
 }
 
 export default class ReplaceOnPacePlugin extends Plugin {
 	settings: ReplaceOnPasteSettings;
 
 	async onload() {
-		// this.addSettingTab(new PacerPlanSettingsTab(this.app, this));
+		this.addSettingTab(new ReplaceOnPasteSettingsTab(this.app, this));
 
 		console.log("loading ReplaceOnPaste plugin");
 		await this.loadSettings();
