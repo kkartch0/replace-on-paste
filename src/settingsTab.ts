@@ -25,30 +25,30 @@ export class ReplaceOnPasteSettingsTab extends PluginSettingTab {
             let searchCell = row.createEl("td");
             let searchInput = searchCell.createEl("input", { type: "text", value: searchPattern, placeholder: "Search Pattern" });
             searchInput.onchange = () => {
-            searchPattern = searchInput.value;
+                searchPattern = searchInput.value;
             };
 
             let replacementCell = row.createEl("td");
             let replacementInput = replacementCell.createEl("input", { type: "text", value: replacementPattern, placeholder: "Replacement Pattern" });
             replacementInput.onchange = () => {
-            replacementPattern = replacementInput.value;
+                replacementPattern = replacementInput.value;
             };
 
             let actionCell = row.createEl("td");
             if (searchPattern && replacementPattern) {
-            let removeButton = actionCell.createEl("button", { text: "Remove" });
-            removeButton.onclick = () => {
-                delete this.plugin.settings.replacements[searchPattern];
-                this.display();
-            };
+                let removeButton = actionCell.createEl("button", { text: "Remove" });
+                removeButton.onclick = () => {
+                    delete this.plugin.settings.replacements[searchPattern];
+                    this.display();
+                };
             } else {
-            let addButton = actionCell.createEl("button", { text: "Add Replacement" });
-            addButton.onclick = () => {
-                if (searchPattern.length > 0 && replacementPattern.length > 0) {
-                this.plugin.settings.replacements[searchPattern] = replacementPattern;
-                this.display();
-                }
-            };
+                let addButton = actionCell.createEl("button", { text: "Add Replacement" });
+                addButton.onclick = () => {
+                    if (searchPattern.length > 0 && replacementPattern.length > 0) {
+                        this.plugin.settings.replacements[searchPattern] = replacementPattern;
+                        this.display();
+                    }
+                };
             }
         };
 
@@ -59,5 +59,18 @@ export class ReplaceOnPasteSettingsTab extends PluginSettingTab {
         for (let [searchPattern, replacementPattern] of Object.entries(this.plugin.settings.replacements)) {
             addRow(searchPattern, replacementPattern);
         }
+
+        // Add button to save settings
+        let saveButton = containerEl.createEl("button", {
+            text: "Save Settings",
+            cls: "mod-cta"
+        });
+        saveButton.addEventListener("click", async () => {
+            await this.plugin.saveSettings();
+            new Notice("Settings saved successfully");
+        });
+
+        // Display json representation of replacements for debugging
+        containerEl.createEl("pre", { text: JSON.stringify(this.plugin.settings.replacements, null, 2) });
     }
 }
