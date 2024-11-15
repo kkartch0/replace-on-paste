@@ -1,0 +1,10 @@
+{
+	"id": "replace-on-paste",
+	"name": "Replace on Paste",
+	"version": "0.1.0",
+	"minAppVersion": "0.15.0",
+	"description": "Specify text to replace on paste.",
+	"author": "Ky Kartchner",
+	"authorUrl": "https://github.com/kkartch0",
+	"isDesktopOnly": false
+}
